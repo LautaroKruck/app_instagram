@@ -1,0 +1,37 @@
+.main__perfil {
+    background-color: #fdf0d5;
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+.user-info {
+
+    min-width: 20%;
+    aspect-ratio: 1/1;
+    background-color: #fb8500;
+    border-radius: 10%;
+    border: 2px solid #ffb703;
+    padding: 2em;
+    row-gap: 2em;
+
+    display: flex;
+    flex-direction: column;
+
+}
+
+.user-info h2 {
+    font-size: 1.5em;
+    color: #023047;
+    margin-bottom: 1em;
+}
+
+.user-info p {
+    font-size: 1.2em;
+    color: #023047;
+    margin: 0.5em 0;
+}
+
+.user-info p strong {
+    color: #ffb703;
+}

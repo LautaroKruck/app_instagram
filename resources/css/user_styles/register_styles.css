@@ -1,0 +1,30 @@
+.main__register {
+    background-color: #fdf0d5;
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+.register__register_form {
+
+    min-width: 30%;
+    aspect-ratio: 1 / 1;
+    background-color: #fb8500;
+    border-radius: 10%;
+    border: 2px solid #ffb703;
+    padding: 2em;
+    row-gap: 1em;
+
+    display: flex;
+    flex-direction: column;
+
+}
+
+.register__register_form-error {
+    border: 2px solid #780000;
+}
+
+.register_form__error {
+    position: absolute;
+    color: #780000;
+}
