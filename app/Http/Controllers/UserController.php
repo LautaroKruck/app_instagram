@@ -11,19 +11,21 @@ use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
+    // Muestra la vista del perfil del usuario, incluyendo las tareas asociadas
     public function showUser($id) {
         $user = User::find($id);
         $chores = $user->chores()->get();
         return view('user_views.index', compact('chores', 'user'));
     }
-    //Show login form
+
+    // Muestra el formulario de inicio de sesión
     public function showLogin() {
-        return view('user_views.login'); // CARGA LA VIEW DE LOGIN PARA PODER REALIZAR LOGIN
+        return view('user_views.login'); // Carga la vista de inicio de sesión
     }
 
-    //Do login
+    // Procesa el inicio de sesión del usuario
     public function doLogin(Request $request) {
-        // VALIDAR DATOS DE ENTRADA
+        // Valida los datos de entrada
         $validator = Validator::make($request->all(), [
             'email' => 'required|email',
             'password' => 'required|string',
@@ -34,22 +36,21 @@ class UserController extends Controller
             'password.string' => 'La contraseña debe ser una cadena de texto.',
         ]);
 
-        // SI LOS DATOS SON INVÁLIDOS, DEVOLVER A LA PÁGINA ANTERIOR E IMPRIMIR LOS ERRORES DE VALIDACIÓN
+        // Si la validación falla, redirige con errores
         if ($validator->fails()) {
             return redirect()->route('login')->withErrors($validator)->withInput();
         }
 
-        // SI EL LOGIN ES INCORRECTO, DEVOLVER A LA PÁGINA ANTERIOR E IMPRIMIR LOS ERRORES DE VALIDACIÓN
+        // Verifica las credenciales del usuario
         $userEmail = $request->get('email');
         $userPassword = $request->get('password');
         $user = User::where('email', $userEmail)->first();
-        if(!password_verify($userPassword, $user->password)) {
+        if (!password_verify($userPassword, $user->password)) {
             $validator->errors()->add('credentials', 'Credenciales incorrectas');
             return redirect()->route('login')->withErrors($validator)->withInput();
         }
 
-        // SI LOS DATOS SON VÁLIDOS (SI EL LOGIN ES CORRECTO) CARGAR LA VISTA PRINCIPAL DEL USUARIO.
-
+        // Si las credenciales son válidas, inicia sesión y carga la vista principal del usuario
         $credentials = [
             'email' => $user->email,
             'password' => $userPassword,
@@ -58,27 +59,18 @@ class UserController extends Controller
             $request->session()->regenerate();
 
             $posts = $user->posts()->get();
-            return view('user_views.index', compact('posts', 'user')); // CARGA LA VIEW PRINCIPAL CON LA INFO DEL USUARIO
-
+            return view('user_views.index', compact('posts', 'user')); // Carga la vista principal con la información del usuario
         }
-        
     }
 
-    //Show register form
+    // Muestra el formulario de registro de usuario
     public function showRegister() {
-        return view('user_views.register'); // CARGA LA VIEW DE REGISTER PARA PODER REALIZAR UN ALTA DE USUARIO
+        return view('user_views.register'); // Carga la vista de registro
     }
 
-    //Do register
+    // Procesa el registro de un nuevo usuario
     public function doRegister(Request $request) {
-
-        // VALIDAR DATOS DE ENTRADA. LAS REGLAS DE VALIDACIÓN SON LAS SIGUIENTES:
-        /*
-            -> nombre es obligatorio, debe ser un string y debe ser menor de 20 carácteres
-            -> email es obligatorio, debe seguir un formato estándar, debe ser único en la base de datos
-            -> password es obligatoria, debe ser mayor de 5 carácteres, menor de 20 carácteres, debe contener una minúscula, una mayúscula y al menos un dígito
-            -> password_repeat es obligatoria y debe ser igual a password
-        */
+        // Valida los datos de entrada para el registro
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:20',
             'email' => 'required|email|unique:users,email',
@@ -108,20 +100,37 @@ class UserController extends Controller
             'password_repeat.same' => 'Las contraseñas no coinciden.',
         ]);
 
-        // SI LOS DATOS SON INVÁLIDOS, DEVOLVER A LA PÁGINA ANTERIOR E IMPRIMIR LOS ERRORES DE VALIDACIÓN
+        // Si la validación falla, redirige con errores
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator->errors());
         }
 
+        // Crea un nuevo usuario y lo guarda en la base de datos
         $user = new User();
         $user->name = $request->name;
         $user->email = $request->email;
         $user->password = Hash::make($request->password);
         $user->save();
 
-
-        // SI LOS DATOS SON VÁLIDOS (SI EL REGISTRO SE HA REALIZADO CORRECTAMENTE) CARGAR LA VIEW DE LOGIN PARA PODER REALIZAR LOGIN
-
-        return redirect()->route('login'); // CARGA LA VIEW DE LOGIN PARA PODER REALIZAR LOGIN
+        return redirect()->route('login'); // Redirige a la vista de inicio de sesión
     }
+
+    // Permite al usuario eliminar su propio perfil y todos sus posts
+    public function deleteUser() {
+        $user = Auth::user();
+    
+        if ($user) {
+            // Elimina el usuario y automáticamente se eliminan sus posts y comentarios
+            $user->delete();
+    
+            // Cierra la sesión del usuario
+            Auth::logout();
+    
+            // Redirige a la vista de inicio de sesión con un mensaje de éxito
+            return redirect()->route('login')->with('success', 'Tu perfil ha sido eliminado correctamente.');
+        }
+    
+        return redirect()->route('login')->withErrors('No se pudo eliminar el perfil.');
+    }
+    
 }
