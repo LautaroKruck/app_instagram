@@ -21,6 +21,7 @@
 
 @vite('resources/css/partials_styles/form_styles.css')
 @vite('resources/css/partials_styles/user_styles.css')
+@vite('resources/css/posts_styles/home_styles.css') 
 
 <!-- MY SCRIPTS -->
 @vite('resources/js/datepickerinitialzr.js')

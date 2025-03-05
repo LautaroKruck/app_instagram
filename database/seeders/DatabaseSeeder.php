@@ -4,10 +4,11 @@ namespace Database\Seeders;
 
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use App\Models\Post;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class UserSeeder extends Seeder
+class DatabaseSeeder extends Seeder
 {
     public function run()
     {
@@ -39,5 +40,18 @@ class UserSeeder extends Seeder
 
         // Crear varios usuarios de prueba
         User::factory(10)->create();
+
+        // Obtener todos los usuarios
+        $users = User::all();
+
+        // Crear 20 posts aleatorios
+        foreach ($users as $user) {
+            Post::create([
+                'user_id' => $user->id,
+                'title' => 'Post de ' . $user->name,
+                'description' => 'Contenido del post de ' . $user->name,
+                //'file_path' => 'https://picsum.photos/200/300'
+            ]);
+        }
     }
 }

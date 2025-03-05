@@ -10,8 +10,7 @@
 
 <body>
     <!-- HEADER -->
-    @include('partials.header-start')
-    @include('partials.header-end-1')
+    @include('partials.header-1')
 
     <!-- LOGIN FORM -->
     @include('partials.form-login')

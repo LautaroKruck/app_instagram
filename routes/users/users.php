@@ -13,7 +13,7 @@ Route::post('/register', [UserController::class, 'doRegister'])->name('user.doRe
 Route::middleware(['auth'])->group(function () {
     Route::get('/perfil/{id}', [UserController::class, 'showUser'])->name('user.show');
     
-    Route::post('/logout', [UserController::class, 'showUser'])->name('user.show');
+    Route::get('/logout', [UserController::class, 'logout'])->name('user.logout');
 
     Route::get('/rutaProtegida', function() {
         return view('viewProtegida');

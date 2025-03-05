@@ -14,8 +14,7 @@ class UserController extends Controller
     // Muestra la vista del perfil del usuario, incluyendo las tareas asociadas
     public function showUser($id) {
         $user = User::find($id);
-        $chores = $user->chores()->get();
-        return view('user_views.index', compact('chores', 'user'));
+        return view('user_views.profile', compact('user'));
     }
 
     // Muestra el formulario de inicio de sesión
@@ -57,9 +56,9 @@ class UserController extends Controller
         ];
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
-
-            $posts = $user->posts()->get();
-            return view('user_views.index', compact('posts', 'user')); // Carga la vista principal con la información del usuario
+            
+            $request->session()->put('user', $user);
+            return redirect()->route('posts.home'); // Carga la vista principal con la información del usuario
         }
     }
 
@@ -131,6 +130,15 @@ class UserController extends Controller
         }
     
         return redirect()->route('login')->withErrors('No se pudo eliminar el perfil.');
+    }
+
+    public function logout(Request $request)
+    {
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect()->route('login'); // Redirigir a login después del logout
     }
     
 }
