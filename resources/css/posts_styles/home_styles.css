@@ -1,8 +1,8 @@
 /* Contenedor principal de la página de inicio */
 .main__home {
     width: 90%;
-    max-width: 800px;
-    background: #fff;
+    max-width: 1200px;
+    background: #f5f5f5;
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);

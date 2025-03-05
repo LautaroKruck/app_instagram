@@ -63,12 +63,31 @@ class PostController extends Controller
                          ->with('success', 'Post creado correctamente.');
     }
 
+    public function like(Request $request){
+        $validator = Validator::make($request->all(), [
+            'post_id' => 'required|integer',
+        ],[
+            'post_id.required' => 'El id del post es obligatorio.',
+            'post_id.integer' => 'El id del post debe ser un número entero.',
+        ]
+        );
+        if ($validator->fails()) {
+            return redirect()->route('posts.home')
+                     ->withErrors($validator)
+                     ->withInput();
+        }
+        $post = Post::findOrFail($request->post_id);
+        $post->n_likes++;
+        $post->save();
+        return redirect()->route('posts.home');
+    }
+
     public function delete($id)
     {
         $post = Post::findOrFail($id);
         $post->delete();
 
-        return redirect()->route('posts.home')
+        return redirect()->route('')
                          ->with('success', 'Post eliminado correctamente.');
     }
 }

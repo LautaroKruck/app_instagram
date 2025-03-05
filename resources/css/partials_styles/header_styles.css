@@ -1,16 +1,16 @@
 .body__header {
     min-height: 10vh;
     height: 10vh;
-    background-color: #003049; /* Fondo oscuro */
+    background: linear-gradient(to right, #003049, #00b4d8); /* Gradiente de azul oscuro a azul claro */
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 0 20px;
-    border-bottom: 1px solid #fb8500; /* Línea de separación estilo Instagram */
+    border-bottom: 1px solid #003049; /* Línea de separación estilo Instagram */
 }
 
 .header__div_logo {
-    color: #fdf0d5; /* Color de logo, blanco */
+    color: #fdf0d5; /* Color del logo, blanco */
     font-size: 1.8em;
     font-weight: 700;
     font-family: "Roboto", sans-serif; /* Fuente limpia y moderna */
@@ -34,7 +34,7 @@
 }
 
 .navigation__a:hover {
-    background-color: #fb8500; /* Color de hover estilo Instagram */
+    background-color: #003049; /* Color de hover estilo Instagram */
     color: white;
 }
 

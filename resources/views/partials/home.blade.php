@@ -16,8 +16,8 @@
                 
                 <!-- Botón de like -->
                 <div class="like-button">
-                    <button class="like-btn" onclick="likePost({{ $post->id }})">❤️ Like</button>
-                    <span id="like-count-{{ $post->id }}" class="like-count">{{ $post->likes_count }}</span>
+                    <button class="like-btn" type="submit" onclick="{{route('posts.like')}}">❤️ Like ❤️</button>
+                    <span id="like-count-{{ $post->id }}" class="like-count">{{ $post->n_likes }}</span>
                 </div>
 
                 <!-- Botón para desplegar comentarios -->

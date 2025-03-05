@@ -11,7 +11,7 @@ Route::post('/login', [UserController::class, 'doLogin'])->name('user.doLogin');
 Route::post('/register', [UserController::class, 'doRegister'])->name('user.doRegister');
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('/perfil/{id}', [UserController::class, 'showUser'])->name('user.show');
+    Route::get('/perfil/{id}', [UserController::class, 'showUser'])->name('user.profile');
     
     Route::get('/logout', [UserController::class, 'logout'])->name('user.logout');
 

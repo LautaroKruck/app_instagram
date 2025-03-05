@@ -1,6 +1,6 @@
 .body__footer {
     min-height: 15vh;
-    background-color: #003049; /* Fondo oscuro */
+    background: linear-gradient(to right, #003049, #00b4d8); /* Gradiente azul oscuro a azul claro */
     display: flex;
     flex-direction: column;
     align-items: center;

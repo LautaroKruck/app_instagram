@@ -1,7 +1,10 @@
 <header class="body__header">
     <!-- Logo -->
     <div class="header__div_logo">
-        LOGO HOME
+        
+    </div>
+    <div class="header__div_logo">
+        INSTACLONE
     </div>
     <!-- Enlaces de navegación para Login y Register -->
     <nav class="header__navigation">
