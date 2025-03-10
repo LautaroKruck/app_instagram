@@ -1,12 +1,14 @@
 .body__header {
-    min-height: 10vh;
-    height: 10vh;
+    position: sticky;
+    top: 0; /* Asegura que se quede pegado a la parte superior */
+    height: 10vh; /* O ajusta la altura que necesites */
     background: linear-gradient(to right, #003049, #00b4d8); /* Gradiente de azul oscuro a azul claro */
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 0 20px;
     border-bottom: 1px solid #003049; /* Línea de separación estilo Instagram */
+    z-index: 1000; /* Asegura que el header esté encima de otros elementos */
 }
 
 .header__div_logo {

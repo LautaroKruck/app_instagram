@@ -1,7 +1,7 @@
 <header class="body__header">
     <!-- Logo -->
     <div class="header__div_logo">
-        LOGO HOME
+        INSTACLONE
     </div>
     <!-- Enlaces de navegación para usuarios autenticados -->
     <nav class="header__navigation">

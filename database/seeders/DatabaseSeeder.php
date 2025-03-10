@@ -2,56 +2,49 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
-use Illuminate\Support\Facades\Hash;
-use App\Models\Post;
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\User;
+use App\Models\Post;
+use Illuminate\Support\Facades\Hash;
+use Faker\Factory as Faker;
 
 class DatabaseSeeder extends Seeder
 {
     public function run()
     {
-        // Crear un usuario administrador
+        // Usar Faker para generar datos aleatorios
+        $faker = Faker::create();
 
+        // Crear un usuario administrador
         User::create([
             'name' => 'Admin',
             'email' => 'admin@gmail.com',
             'password' => Hash::make('Admin123@'),
         ]);
 
-        User::create([
-            'name' => 'Lautaro',
-            'email' => 'lautaro@gmail.com',
-            'password' => Hash::make('Lautaro123@'),
-        ]);
+        // Crear varios usuarios (puedes personalizar esta cantidad)
+        $users = User::factory(5)->create(); // Genera 5 usuarios aleatorios
 
-        User::create([
-            'name' => 'Pepe',
-            'email' => 'pepe@gmail.com',
-            'password' => Hash::make('Pepe123@'),
-        ]);
-
-        User::create([
-            'name' => 'Luis',
-            'email' => 'luis@gmail.com',
-            'password' => Hash::make('Luis123@'),
-        ]);
-
-        // Crear varios usuarios de prueba
-        User::factory(3)->create();
-
-        // Obtener todos los usuarios
-        $users = User::all();
-
-        // Crear 20 posts aleatorios
+        // Crear 20 posts aleatorios con diferentes usuarios
         foreach ($users as $user) {
-            Post::create([
-                'user_id' => $user->id,
-                'title' => 'Post de ' . $user->name,
-                'description' => 'Contenido del post de ' . $user->name,
-                'image' => 'posts/default.jpg',
-            ]);
+            // Crear varios posts para cada usuario
+            for ($i = 0; $i < 2; $i++) {
+                Post::create([
+                    'user_id' => $user->id,
+                    'title' => $faker->sentence, // Título aleatorio
+                    'description' => $faker->paragraph, // Descripción aleatoria
+                    'image' => 'posts/default.jpg', // Imagen aleatoria
+                ]);
+            }
         }
+
+        // También puedes agregar más datos específicos si es necesario
+        // Ejemplo de un post adicional para el admin:
+        Post::create([
+            'user_id' => 1, // Usuario admin (id=1)
+            'title' => 'Post de Admin',
+            'description' => 'Este es un post de ejemplo para el usuario Admin.',
+            'image' => 'posts/default.jpg',
+        ]);
     }
 }

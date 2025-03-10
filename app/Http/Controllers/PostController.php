@@ -30,11 +30,12 @@ class PostController extends Controller
         $validator = Validator::make($request->all(), [
             'title' => 'required|max:255',
             'description' => 'required',
-            'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Hacemos que la imagen sea opcional
         ], [
             'title.required' => 'El título es obligatorio.',
             'title.max' => 'El título debe tener menos de 255 caracteres.',
             'description.required' => 'La descripción es obligatoria.',
+            'image.required' => 'La imagen es obligatoria.',
             'image.image' => 'El archivo debe ser una imagen.',
             'image.mimes' => 'La imagen debe ser de tipo jpeg, png, jpg o gif.',
             'image.max' => 'La imagen debe pesar menos de 2MB.',
@@ -46,21 +47,26 @@ class PostController extends Controller
                 ->withInput();
         }
 
+        // Inicializamos la variable $imagePath como null en caso de que no se suba ninguna imagen
         $imagePath = null;
+
         if ($request->hasFile('image')) {
             $image = $request->file('image')->store('posts');
+            $imagePath = $image;
         }
 
+        // Creamos el post
         $post = new Post();
         $post->title = $request->title;
         $post->description = $request->description;
-        $post->image = $image;
+        $post->image = $imagePath; // Asignamos el valor de $imagePath (puede ser null)
         $post->user_id = Auth::id();
         $post->save();
 
         return redirect()->route('posts.home')
             ->with('success', 'Post creado correctamente.');
     }
+
 
     public function like(Request $request){
         $validator = Validator::make($request->all(), [

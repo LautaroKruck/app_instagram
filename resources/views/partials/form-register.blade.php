@@ -23,8 +23,8 @@
             @error('password_repeat') <small class="register_form__error">{{ $message }}</small> @enderror
         </div>
         <div class="form-group d-flex justify-content-center gap-3">
-            <button type="submit" class="btn btn-primary">Submit</button>
-            <button type="reset" class="btn btn-danger">Reset</button>
+            <button type="submit" class="btn btn-primary">Crear Cuenta</button>
+            <button type="reset" class="btn btn-danger">Borrar Todo</button>
         </div>
     </form>
 </main>

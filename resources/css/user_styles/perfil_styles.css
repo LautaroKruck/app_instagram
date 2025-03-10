@@ -1,36 +1,45 @@
 /* Estilos generales */
 .main__perfil {
-    background-color: #f0f8ff; /* Un fondo azul claro suave */
-    min-height: 80vh;
+    background-color: #f0f8ff; /* Fondo azul claro suave */
+    min-height: 75vh;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 2em;
+    padding: 3em 2em;
+    box-sizing: border-box;
 }
 
+/* Contenedor de la información del usuario */
 .user-info {
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #00b4d8; /* Color de fondo más suave */
-    border-radius: 10px;
-    padding: 2em;
+    background-color: #00b4d8; /* Azul más suave */
+    border-radius: 12px;
+    padding: 3em;
     gap: 2em;
-    width: 80%;
+    width: 90%;
     max-width: 1200px;
-    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease-in-out;
 }
 
+.user-info:hover {
+    box-shadow: 0px 15px 30px rgba(0, 0, 0, 0.2);
+}
+
+/* Contenedor de la imagen de perfil */
 .user-avatar-container {
     flex-shrink: 0;
-    width: 200px;
-    height: 200px;
+    width: 220px;
+    height: 220px;
     border-radius: 50%;
     overflow: hidden;
-    border: 4px solid #003049; /* Borde azul claro */
+    border: 4px solid #003049; /* Borde azul oscuro */
 }
 
+/* Imagen de perfil */
 .user-avatar {
     width: 100%;
     height: 100%;
@@ -38,114 +47,125 @@
     border-radius: 50%;
 }
 
+/* Detalles del usuario */
 .user-details {
     flex-grow: 1;
-    color: #003049; /* Color de texto oscuro pero suave */
+    color: #003049; /* Texto oscuro */
 }
 
 .user-details h2 {
-    font-size: 2em;
-    margin-bottom: 1em;
-    color: #003049; /* Azul más vibrante para el título */
+    font-size: 2.5em;
+    margin-bottom: 1.5em;
+    color: #003049; /* Azul más fuerte para el título */
+    font-weight: 600;
 }
 
 .user-details p {
-    font-size: 1.2em;
+    font-size: 1.1em;
     margin: 0.5em 0;
+    line-height: 1.6;
+    color: #333;
 }
 
 .user-details p strong {
-    color: #000000; /* Color para resaltar el texto */
+    color: #000; /* Resaltado en negro */
 }
 
+/* Botón de acción (Eliminar cuenta, etc.) */
 .user-actions button {
-    background-color: #003049; /* Azul más fuerte para los botones */
+    background-color: #003049; /* Azul oscuro */
     color: white;
-    border: 2px solid #003049; /* Borde azul claro */
-    padding: 0.8em 1.5em;
-    border-radius: 5px;
+    border: 2px solid #003049;
+    padding: 1em 2em;
+    border-radius: 6px;
     cursor: pointer;
-    margin-top: 1em;
-    font-size: 1em;
+    margin-top: 1.5em;
+    font-size: 1.1em;
+    transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 .user-actions button:hover {
-    background-color: #01579b; /* Azul más oscuro para el hover */
+    background-color: #01579b; /* Azul más oscuro para hover */
+    transform: translateY(-3px); /* Sutil efecto de movimiento */
 }
 
 /* Sección de Posts */
 .user-posts {
-    width: 80%;
+    width: 90%;
     max-width: 1200px;
     margin-top: 3em;
     text-align: center;
 }
 
 .user-posts h3 {
-    font-size: 2.5em;
+    font-size: 2.8em;
     margin-bottom: 1em;
-    color: #0288d1;
+    color: #0288d1; /* Azul brillante */
+    font-weight: 600;
 }
 
 .posts-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 1.5em;
+    gap: 2em;
     padding: 0 1em;
 }
 
 .post-card {
-    background-color: #0288d1; /* Fondo del post */
-    border-radius: 10px;
-    padding: 2em;
+    background-color: #0288d1; /* Fondo azul */
+    border-radius: 12px;
+    padding: 2.5em;
     color: #37474f;
-    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .post-card:hover {
-    transform: translateY(-5px); /* Efecto al pasar el mouse */
-    box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.2);
+    transform: translateY(-7px); /* Efecto al pasar el mouse */
+    box-shadow: 0px 5px 30px rgba(0, 0, 0, 0.2);
 }
 
 .post-card h4 {
-    font-size: 1.5em;
+    font-size: 1.6em;
     margin-bottom: 1em;
-    color: #0288d1; /* Título en color azul */
+    color: #003049; /* Azul oscuro para el título */
+    font-weight: 600;
 }
 
 .post-card p {
-    font-size: 1.1em;
+    font-size: 1.2em;
     margin-bottom: 1em;
     color: #333;
 }
 
 .post-card a {
     color: #42a5f5; /* Enlaces azules */
-    font-weight: bold;
+    font-weight: 500;
     text-decoration: none;
+    transition: color 0.3s ease;
 }
 
 .post-card a:hover {
+    color: #0288d1; /* Cambio de color al pasar el mouse */
     text-decoration: underline;
 }
 
 /* Estilos para las imágenes de los posts */
 .post-picture-display {
-    margin-bottom: 1em;
+    margin-bottom: 1.5em;
     overflow: hidden;
-    border-radius: 8px;
+    border-radius: 12px;
 }
 
 .post-picture {
     width: 100%;
     height: 200px;
     object-fit: cover;
-    border-radius: 8px;
+    border-radius: 12px;
 }
 
 /* Asegurarse de que las imágenes en las tarjetas no se desborden */
 .post-card img {
     max-width: 100%;
-    border-radius: 10px;
+    border-radius: 12px;
 }

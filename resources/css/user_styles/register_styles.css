@@ -1,30 +1,92 @@
+/* Contenedor principal de la página de registro */
 .main__register {
-    background-color: #fdf0d5;
+    background-color: #f0f8ff; /* Azul suave similar al fondo del perfil */
     min-height: 80vh;
     display: flex;
     align-items: center;
-    justify-content: space-evenly;
-}
-.register__register_form {
-
-    min-width: 30%;
-    aspect-ratio: 1 / 1;
-    background-color: #fb8500;
-    border-radius: 10%;
-    border: 2px solid #ffb703;
+    justify-content: center; /* Centrado horizontal y vertical */
     padding: 2em;
-    row-gap: 1em;
+}
 
+/* Formulario de registro */
+.register__register_form {
+    min-width: 320px; /* Ajustado para que sea más responsivo */
+    background-color: #ffffff; /* Fondo blanco para que el formulario resalte */
+    border-radius: 15px;
+    border: 2px solid #0288d1; /* Azul claro */
+    padding: 2.5em;
     display: flex;
     flex-direction: column;
-
+    gap: 1.5em;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
+/* Estilo para los campos de entrada */
+.form-control {
+    padding: 12px;
+    border: 2px solid #0288d1; /* Azul suave */
+    border-radius: 5px;
+    font-size: 1em;
+    color: #333;
+    transition: border-color 0.3s ease;
+}
+
+/* Efecto de enfoque en los campos de entrada */
+.form-control:focus {
+    border-color: #003049; /* Azul más oscuro para el enfoque */
+    outline: none;
+}
+
+/* Estilos para los errores de los formularios */
 .register__register_form-error {
-    border: 2px solid #780000;
+    border: 2px solid #d32f2f; /* Rojo suave para el error */
 }
 
+/* Mensajes de error */
 .register_form__error {
     position: absolute;
-    color: #780000;
+    color: #d32f2f; /* Color rojo suave para los mensajes de error */
+    font-size: 0.9em;
+    margin-top: 5px;
+}
+
+/* Estilo para los botones */
+button[type="submit"] {
+    background-color: #0288d1; /* Azul del perfil */
+    color: white;
+    border: 2px solid #0288d1;
+    padding: 12px 20px;
+    border-radius: 5px;
+    font-size: 1.1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+/* Efecto de hover en el botón submit */
+button[type="submit"]:hover {
+    background-color: #01579b; /* Azul más oscuro en hover */
+    transform: translateY(-2px);
+}
+
+/* Estilo para el botón de reset */
+button[type="reset"] {
+    background-color: #d32f2f; /* Rojo suave */
+    color: white;
+    border: 2px solid #d32f2f;
+    padding: 12px 20px;
+    border-radius: 5px;
+    font-size: 1.1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+/* Efecto de hover en el botón de reset */
+button[type="reset"]:hover {
+    background-color: #c62828; /* Rojo más oscuro en hover */
+    transform: translateY(-2px);
+}
+
+/* Ajuste del fondo de la página de registro */
+.main__register {
+    background-color: #f0f8ff; /* Azul claro suave */
 }

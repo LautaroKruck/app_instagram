@@ -1,7 +1,13 @@
 @vite('resources/css/user_styles/login_styles.css')
+
 <main class="main__login">
     <form class="login__login_form {{ $errors->any() ? 'login__login_form-error' : '' }}" action="{{ route('user.doLogin') }}" method="post">
         @csrf
+        @if ($errors->has('credentials'))
+            <div class="form-group">
+                <small class="login_form__error">{{ $errors->first('credentials') }}</small>
+            </div>
+        @endif
         <div class="form-group">
             <label for="email">Email:</label>
             <input class="form-control" type="text" id="input_email" name="email" placeholder="Enter email">
@@ -13,7 +19,7 @@
             @error('password') <small class="login_form__error">{{ $message }}</small> @enderror
         </div>
         <div class="form-group d-flex justify-content-center">
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="submit" class="btn btn-primary">Iniciar Sesión</button>
         </div>
     </form>
 </main>
