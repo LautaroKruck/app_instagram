@@ -125,9 +125,9 @@ div[id^="comments-"] p strong {
 
 /* Estilo del contenedor de la publicación de imagen (descomentado en caso de usar imagen) */
 .post img {
-    width: 100%;
     height: auto;
     border-radius: 8px;
-    object-fit: cover;
     margin-top: 10px;
+    width: 300px;
+    height: auto;
 }

@@ -12,8 +12,12 @@ Route::post('/register', [UserController::class, 'doRegister'])->name('user.doRe
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/perfil/{id}', [UserController::class, 'showUser'])->name('user.profile');
+
+    Route::put('/perfil/{id}', [UserController::class, 'addImage'])->name('user.image');
     
     Route::get('/logout', [UserController::class, 'logout'])->name('user.logout');
+
+    Route::delete('/perfil/{id}', [UserController::class, 'UserDelete'])->name('user.delete');
 
     Route::get('/rutaProtegida', function() {
         return view('viewProtegida');

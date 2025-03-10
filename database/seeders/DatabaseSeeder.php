@@ -39,7 +39,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         // Crear varios usuarios de prueba
-        User::factory(10)->create();
+        User::factory(3)->create();
 
         // Obtener todos los usuarios
         $users = User::all();
@@ -50,7 +50,7 @@ class DatabaseSeeder extends Seeder
                 'user_id' => $user->id,
                 'title' => 'Post de ' . $user->name,
                 'description' => 'Contenido del post de ' . $user->name,
-                //'file_path' => 'https://picsum.photos/200/300'
+                'image' => 'posts/default.jpg',
             ]);
         }
     }

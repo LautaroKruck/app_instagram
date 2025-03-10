@@ -10,7 +10,20 @@
             let commentsSection = document.getElementById('comments-' + postId);
             commentsSection.style.display = commentsSection.style.display === 'none' ? 'block' : 'none';
         }
-
+        
+        function likePost(postId) {
+        fetch(`/posts/like`, {
+            method: 'POST',
+            headers: {
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ post_id: postId })
+        }).then(response => response.json())
+          .then(data => {
+              document.getElementById(`n_likes-${postId}`).innerText = data.n_likes;
+          }).catch(error => console.error('Error:', error));
+        }
     </script>
 </head>
 <body>

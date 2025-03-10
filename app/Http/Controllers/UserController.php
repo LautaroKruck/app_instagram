@@ -114,6 +114,35 @@ class UserController extends Controller
         return redirect()->route('login'); // Redirige a la vista de inicio de sesión
     }
 
+    // Permite al usuario agregar una imagen de perfil
+    public function addImage(Request $request) {
+        $user = Auth::user();
+
+        // Valida la imagen de entrada
+        $validator = Validator::make($request->all(), [
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ], [
+            'image.required' => 'El campo de imagen es obligatorio.',
+            'image.image' => 'El archivo debe ser una imagen.',
+            'image.mimes' => 'La imagen debe ser de tipo jpeg, png, jpg o gif.',
+            'image.max' => 'La imagen no puede tener más de 2MB.',
+        ]);
+
+        // Si la validación falla, redirige con errores
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator->errors());
+        }
+
+        // Guarda la imagen en el sistema de archivos
+        $image = $request->file['image']->store('profiles');
+
+        // Actualiza la ruta de la imagen en el perfil del usuario
+        $user->image = $image;
+        $user->save();
+
+        return redirect()->route('user.profile', ['id' => $user->id])->with('success', 'Imagen de perfil actualizada correctamente.');
+    }
+
     // Permite al usuario eliminar su propio perfil y todos sus posts
     public function deleteUser() {
         $user = Auth::user();

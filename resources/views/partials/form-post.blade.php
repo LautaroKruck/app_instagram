@@ -7,8 +7,8 @@
             <input type="text" name="title" id="title" class="form-control" placeholder="Introduce el título de tu post" required>
         </div>
         <div class="form-group">
-            <label for="content">Contenido</label>
-            <textarea name="content" id="content" class="form-control" rows="5" placeholder="Escribe el contenido de tu post" required></textarea>
+            <label for="description">Descripción</label>
+            <textarea name="description" id="content" class="form-control" rows="5" placeholder="Escribe el contenido de tu post" required></textarea>
         </div>
         <div class="form-group">
             <label for="image">Imagen</label>

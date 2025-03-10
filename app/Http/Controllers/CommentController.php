@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Comment;
 use App\Models\Post;
+use Illuminate\Support\Facades\Auth;
 
 class CommentController extends Controller
 {
@@ -16,13 +17,16 @@ class CommentController extends Controller
             'content' => 'required|string|max:255',
         ]);
 
-        $comment = Comment::create([
+        Comment::create([
             'post_id' => $validatedData['post_id'],
+            'user_id' => Auth::user()->id,
             'content' => $validatedData['content'],
         ]);
 
-        return response()->json($comment, 201);
+        return redirect()->route('posts.home')->with('success', 'Comentario añadido correctamente.');
     }
+
+
     public function show($postId)
     {
         $post = Post::findOrFail($postId);

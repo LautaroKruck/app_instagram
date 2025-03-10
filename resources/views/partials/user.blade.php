@@ -4,8 +4,11 @@
     <div class="user-info">
         <!-- Imagen de perfil -->
         <div class="user-avatar-container">
-            <img class="user-avatar" src="URL_DE_LA_IMAGEN" alt="Avatar del usuario">
+            <img class="user-avatar" 
+                src="{{ asset('storage/' . ($user->image ? $user->image : 'profiles/default-avatar.jpg')) }}" 
+                alt="Avatar del usuario">
         </div>
+
 
         <!-- Información del usuario -->
         <div class="user-details">
@@ -16,26 +19,43 @@
 
             <!-- Contenedor de botones -->
             <div class="user-actions">
-                <button class="edit-btn">Editar Perfil</button>
-                <button class="delete-btn">Eliminar Cuenta</button>
+                <form action="{{ route('user.image', ['id' => $user->id]) }}" method="PUT" enctype="multipart/form-data">
+                    @csrf
+                    <input type="file" name="image">
+                    <button type="submit" class="edit-btn">Agregar Foto</button>
+                </form>
+
+                <form action="{{ route('user.delete', ['id' => $user->id]) }}" method="POST">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="delete-btn">Eliminar Cuenta</button>
+                </form>
             </div>
         </div>
     </div>
 
     <!-- Sección de Posts -->
-    <section class="user-posts">
-        <h3>Mis Publicaciones</h3>
-        <div class="posts-grid">
-            @foreach($user->posts as $post)
-                <article class="post-card">
-                    <h4>{{ $post->title }}</h4>
-                    <p>{{ Str::limit($post->description, 100) }}</p>
-                    <img class="post-image" src="{{ $post->image_url }}" alt="Imagen del post">
-                    <p><strong>Likes:</strong> {{ $post->n_likes }}</p>
-                    <button class="comment-btn">Comentarios</button>
-                    <button class="delete-post-btn">Eliminar</button>
-                </article>
-            @endforeach
-        </div>
-    </section>
+    @if($user->posts->count() > 0)
+        <section class="user-posts">
+            <h3>Mis Publicaciones</h3>
+            <div class="posts-grid">
+                @foreach($user->posts as $post)
+                    <article class="post-card">
+                        <h4>{{ $post->title }}</h4>
+                        <p>{{ Str::limit($post->description, 100) }}</p>
+                        <div class="post-picture-display">
+                            <img src="{{ asset('storage/' . $post-> image) }}" class="post-picture">
+                        </div>
+                        <p><strong>Likes:</strong> {{ $post->n_likes }}</p>
+                        <form action="{{ route('posts.delete', ['id' => $post->id]) }}" method="POST">
+                            @csrf
+                            @method('DELETE') 
+                            <button type="submit" class="btn btn-danger">Eliminar</button>
+                        </form>
+
+                    </article>
+                @endforeach
+            </div>
+        </section>
+    @endif
 </main>

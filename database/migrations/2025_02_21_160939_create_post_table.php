@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->string('title');
             $table->text('description');
-            //$table->string('file_path');
+            $table->string('image')->nullable();
             $table->date('publish_date')->default(now());
             $table->integer('n_likes')->default(0);
             $table->timestamps();
