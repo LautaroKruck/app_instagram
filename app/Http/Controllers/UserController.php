@@ -187,8 +187,9 @@ class UserController extends Controller
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-
-        return redirect()->route('login'); // Redirigir a login después del logout
+        
+        // Redirigir a login después del logout
+        return redirect()->route('login');
     }
     
 }

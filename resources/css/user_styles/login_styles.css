@@ -1,7 +1,7 @@
 /* Contenedor principal de la página de login */
 .main__login {
     background-color: #f0f8ff; /* Azul claro suave similar al fondo del perfil */
-    min-height: 80vh;
+    min-height: 75vh;
     display: flex;
     align-items: center;
     justify-content: center; /* Centrado horizontal y vertical */

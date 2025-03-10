@@ -1,6 +1,6 @@
 @vite('resources/css/posts_styles/create_styles.css')
 <main class="main__post">
-    <form action="{{ route('posts.create') }}" method="POST" enctype="multipart/form-data">
+    <form class="post__post_form {{ $errors->any() ? 'post__post_form-error' : '' }}" action="{{ route('posts.create') }}" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="form-group">
             <label for="title">Título</label>

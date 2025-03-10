@@ -59,7 +59,7 @@ class PostController extends Controller
         $post = new Post();
         $post->title = $request->title;
         $post->description = $request->description;
-        $post->image = $imagePath; // Asignamos el valor de $imagePath (puede ser null)
+        $post->image = $imagePath;
         $post->user_id = Auth::id();
         $post->save();
 
