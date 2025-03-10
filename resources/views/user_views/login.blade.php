@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     @include('partials.include-styles')
-    <title>Login</title>
+    <title>Iniciar Sesión</title>
 </head>
 
 <body>

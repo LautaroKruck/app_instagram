@@ -19,15 +19,18 @@
 
             <!-- Contenedor de botones -->
             <div class="user-actions">
-                <form action="{{ route('user.image', ['id' => $user->id]) }}" method="PUT" enctype="multipart/form-data">
+                <!-- Formulario para agregar imagen -->
+                <form action="{{ route('user.image', ['id' => $user->id]) }}" method="POST" enctype="multipart/form-data">
                     @csrf
-                    <input type="file" name="image">
+                    @method('PUT') <!-- Asegúrate de que el método sea PUT -->
+                    <input type="file" name="image" accept="image/*" class="input-image">
                     <button type="submit" class="edit-btn">Agregar Foto</button>
                 </form>
 
-                <form action="{{ route('user.delete', ['id' => $user->id]) }}" method="POST">
+                <!-- Formulario para eliminar cuenta -->
+                <form action="{{ route('user.delete') }}" method="POST">
                     @csrf
-                    @method('DELETE')
+                    @method('DELETE')  <!-- Indicamos que es un método DELETE -->
                     <button type="submit" class="delete-btn">Eliminar Cuenta</button>
                 </form>
             </div>

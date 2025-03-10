@@ -8,6 +8,8 @@ use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Chore;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
@@ -34,31 +36,38 @@ class UserController extends Controller
             'password.required' => 'El campo de contraseña es obligatorio.',
             'password.string' => 'La contraseña debe ser una cadena de texto.',
         ]);
-
+    
         // Si la validación falla, redirige con errores
         if ($validator->fails()) {
             return redirect()->route('login')->withErrors($validator)->withInput();
         }
-
-        // Verifica las credenciales del usuario
-        $userEmail = $request->get('email');
-        $userPassword = $request->get('password');
-        $user = User::where('email', $userEmail)->first();
-        if (!password_verify($userPassword, $user->password)) {
-            $validator->errors()->add('credentials', 'Credenciales incorrectas');
+    
+        // Verifica si el usuario existe
+        $user = User::where('email', $request->get('email'))->first();
+    
+        if (!$user) {
+            // Si no existe el usuario
+            $validator->errors()->add('credentials', 'El usuario no existe.');
             return redirect()->route('login')->withErrors($validator)->withInput();
         }
-
-        // Si las credenciales son válidas, inicia sesión y carga la vista principal del usuario
+    
+        // Verifica las credenciales del usuario
         $credentials = [
             'email' => $user->email,
-            'password' => $userPassword,
+            'password' => $request->get('password'),
         ];
+    
+        // Si las credenciales son correctas, inicia sesión
         if (Auth::attempt($credentials)) {
+            // Regenera la sesión para evitar ataques de secuestro de sesión
             $request->session()->regenerate();
-            
-            $request->session()->put('user', $user);
-            return redirect()->route('posts.home'); // Carga la vista principal con la información del usuario
+    
+            // Redirige a la página principal después de iniciar sesión
+            return redirect()->route('posts.home');
+        } else {
+            // Si las credenciales son incorrectas
+            $validator->errors()->add('credentials', 'Credenciales incorrectas');
+            return redirect()->route('login')->withErrors($validator)->withInput();
         }
     }
 
@@ -133,8 +142,13 @@ class UserController extends Controller
             return redirect()->back()->withErrors($validator->errors());
         }
 
+        // Si el usuario ya tiene una imagen, la eliminamos
+        if ($user->image) {
+            Storage::delete($user->image);
+        }
+
         // Guarda la imagen en el sistema de archivos
-        $image = $request->file['image']->store('profiles');
+        $image = $request->file('image')->store('profiles');
 
         // Actualiza la ruta de la imagen en el perfil del usuario
         $user->image = $image;
@@ -148,11 +162,18 @@ class UserController extends Controller
         $user = Auth::user();
     
         if ($user) {
-            // Elimina el usuario y automáticamente se eliminan sus posts y comentarios
+            // Elimina las sesiones asociadas al usuario eliminado
+            DB::table('sessions')->where('user_id', $user->id)->delete();
+    
+            // Elimina el usuario y sus posts y comentarios
             $user->delete();
     
             // Cierra la sesión del usuario
             Auth::logout();
+    
+            // Borra todos los datos de la sesión para evitar el problema de "usuario eliminado"
+            session()->invalidate();
+            session()->regenerateToken();
     
             // Redirige a la vista de inicio de sesión con un mensaje de éxito
             return redirect()->route('login')->with('success', 'Tu perfil ha sido eliminado correctamente.');

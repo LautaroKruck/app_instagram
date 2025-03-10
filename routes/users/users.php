@@ -17,7 +17,7 @@ Route::middleware(['auth'])->group(function () {
     
     Route::get('/logout', [UserController::class, 'logout'])->name('user.logout');
 
-    Route::delete('/perfil/{id}', [UserController::class, 'UserDelete'])->name('user.delete');
+    Route::delete('/delete', [UserController::class, 'deleteUser'])->name('user.delete');
 
     Route::get('/rutaProtegida', function() {
         return view('viewProtegida');

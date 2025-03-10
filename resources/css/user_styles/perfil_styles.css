@@ -35,6 +35,7 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
+    border-radius: 50%;
 }
 
 .user-details {
@@ -94,30 +95,57 @@
 }
 
 .post-card {
-    background-color: #0288d1; /* Un color suave rosado para los post */
+    background-color: #0288d1; /* Fondo del post */
     border-radius: 10px;
     padding: 2em;
     color: #37474f;
     box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.post-card:hover {
+    transform: translateY(-5px); /* Efecto al pasar el mouse */
+    box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.2);
 }
 
 .post-card h4 {
     font-size: 1.5em;
     margin-bottom: 1em;
-    color: #0288d1; /* Color azul para el título del post */
+    color: #0288d1; /* Título en color azul */
 }
 
 .post-card p {
     font-size: 1.1em;
     margin-bottom: 1em;
+    color: #333;
 }
 
 .post-card a {
-    color: #42a5f5; /* Azul para los enlaces */
+    color: #42a5f5; /* Enlaces azules */
     font-weight: bold;
     text-decoration: none;
 }
 
 .post-card a:hover {
     text-decoration: underline;
+}
+
+/* Estilos para las imágenes de los posts */
+.post-picture-display {
+    margin-bottom: 1em;
+    overflow: hidden;
+    border-radius: 8px;
+}
+
+.post-picture {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+/* Asegurarse de que las imágenes en las tarjetas no se desborden */
+.post-card img {
+    max-width: 100%;
+    border-radius: 10px;
 }
