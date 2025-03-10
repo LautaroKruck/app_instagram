@@ -71,22 +71,59 @@
     color: #000; /* Resaltado en negro */
 }
 
-/* Botón de acción (Eliminar cuenta, etc.) */
-.user-actions button {
+/* Contenedor de acciones de usuario */
+.user-actions {
+    display: flex;
+    justify-content: center;
+    gap: 0.5em; /* Espacio entre los elementos */
+    align-items: center;
+    flex-wrap: wrap; /* Permite que los elementos se ajusten en pantallas más pequeñas */
+    margin-top: 2em;
+}
+
+/* Caja para los botones y el input de imagen */
+.buttons-container {
+    display: flex;
+    gap: 0.5em; /* Espacio entre los elementos */
+    align-items: center;
+}
+
+/* Estilo para el input de imagen */
+.input-image {
+    padding: 1em;
+    border-radius: 6px;
+    border: 2px solid #003049;
+    font-size: 1em;
+    width: 300px; /* Ancho ajustado */
+    transition: 0.3s ease;
+}
+
+/* Estilo para los botones */
+.edit-btn, .delete-btn {
     background-color: #003049; /* Azul oscuro */
     color: white;
     border: 2px solid #003049;
     padding: 1em 2em;
     border-radius: 6px;
     cursor: pointer;
-    margin-top: 1.5em;
     font-size: 1.1em;
+    text-align: center;
+    width: auto; /* Ajuste al tamaño del contenido */
     transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-.user-actions button:hover {
+.edit-btn:hover, .delete-btn:hover {
     background-color: #01579b; /* Azul más oscuro para hover */
-    transform: translateY(-3px); /* Sutil efecto de movimiento */
+    transform: translateY(-3px); /* Efecto de movimiento */
+}
+
+/* Estilo para mostrar errores de validación */
+.error-message {
+    color: red;
+    font-size: 0.9rem;
+    margin-top: 0.5em;
+    font-weight: bold;
+    display: block;
 }
 
 /* Sección de Posts */

@@ -26,50 +26,50 @@ class UserController extends Controller
 
     // Procesa el inicio de sesión del usuario
     public function doLogin(Request $request) {
-        // Valida los datos de entrada
-        $validator = Validator::make($request->all(), [
-            'email' => 'required|email',
-            'password' => 'required|string',
-        ], [
-            'email.required' => 'El campo de correo electrónico es obligatorio.',
-            'email.email' => 'El correo electrónico debe ser una dirección de correo válida.',
-            'password.required' => 'El campo de contraseña es obligatorio.',
-            'password.string' => 'La contraseña debe ser una cadena de texto.',
-        ]);
-    
-        // Si la validación falla, redirige con errores
-        if ($validator->fails()) {
-            return redirect()->route('login')->withErrors($validator)->withInput();
-        }
-    
-        // Verifica si el usuario existe
-        $user = User::where('email', $request->get('email'))->first();
-    
-        if (!$user) {
-            // Si no existe el usuario
-            $validator->errors()->add('credentials', 'El usuario no existe.');
-            return redirect()->route('login')->withErrors($validator)->withInput();
-        }
-    
-        // Verifica las credenciales del usuario
-        $credentials = [
-            'email' => $user->email,
-            'password' => $request->get('password'),
-        ];
-    
-        // Si las credenciales son correctas, inicia sesión
-        if (Auth::attempt($credentials)) {
-            // Regenera la sesión para evitar ataques de secuestro de sesión
-            $request->session()->regenerate();
-    
-            // Redirige a la página principal después de iniciar sesión
-            return redirect()->route('posts.home');
-        } else {
-            // Si las credenciales son incorrectas
-            $validator->errors()->add('credentials', 'Credenciales incorrectas');
-            return redirect()->route('login')->withErrors($validator)->withInput();
-        }
+    // Valida los datos de entrada
+    $validator = Validator::make($request->all(), [
+        'email' => 'required|email',
+        'password' => 'required|string',
+    ], [
+        'email.required' => 'El campo de correo electrónico es obligatorio.',
+        'email.email' => 'El correo electrónico debe ser una dirección de correo válida.',
+        'password.required' => 'El campo de contraseña es obligatorio.',
+        'password.string' => 'La contraseña debe ser una cadena de texto.',
+    ]);
+
+    // Si la validación falla, redirige con errores
+    if ($validator->fails()) {
+        return redirect()->route('login')->withErrors($validator)->withInput();
     }
+
+    // Verifica si el usuario existe
+    $user = User::where('email', $request->get('email'))->first();
+
+    if (!$user) {
+        // Si no existe el usuario
+        $validator->errors()->add('credentials', 'El usuario no existe.');
+        return redirect()->route('login')->withErrors($validator)->withInput();
+    }
+
+    // Verifica las credenciales del usuario
+    $credentials = [
+        'email' => $user->email,
+        'password' => $request->get('password'),
+    ];
+
+    // Si las credenciales son correctas, inicia sesión
+    if (Auth::attempt($credentials)) {
+        // Regenera la sesión para evitar ataques de secuestro de sesión
+        $request->session()->regenerate();
+
+        // Redirige a la página principal después de iniciar sesión
+        return redirect()->route('posts.home');
+    } else {
+        // Si las credenciales son incorrectas
+        $validator->errors()->add('credentials', 'Credenciales incorrectas');
+        return redirect()->route('login')->withErrors($validator)->withInput();
+    }
+}
 
     // Muestra el formulario de registro de usuario
     public function showRegister() {
@@ -139,7 +139,7 @@ class UserController extends Controller
 
         // Si la validación falla, redirige con errores
         if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator->errors());
+            return redirect()->back()->withErrors($validator->errors())->withInput();
         }
 
         // Si el usuario ya tiene una imagen, la eliminamos

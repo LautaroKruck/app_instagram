@@ -17,22 +17,33 @@
             <p><strong>Email:</strong> {{ $user->email }}</p>
             <p><strong>Fecha de Registro:</strong> {{ $user->created_at->format('d/m/Y') }}</p>
 
-            <!-- Contenedor de botones -->
-            <div class="user-actions">
-                <!-- Formulario para agregar imagen -->
-                <form action="{{ route('user.image', ['id' => $user->id]) }}" method="POST" enctype="multipart/form-data">
-                    @csrf
-                    @method('PUT') <!-- Asegúrate de que el método sea PUT -->
-                    <input type="file" name="image" accept="image/*" class="input-image">
-                    <button type="submit" class="edit-btn">Agregar Foto</button>
-                </form>
+            <!-- Contenedor de acciones de usuario -->
+                <div class="user-actions">
+                    <!-- Caja contenedora para los botones -->
+                    <div class="buttons-container">
+                        <!-- Formulario para agregar imagen -->
+                        <form action="{{ route('user.image', ['id' => $user->id]) }}" method="POST" enctype="multipart/form-data">
+                            @csrf
+                            @method('PUT')
+                            <!-- Input para subir archivo -->
+                            <input type="file" name="image" accept="image/*" class="input-image">
+                            
+                            <!-- Mostrar errores si no se selecciona un archivo -->
+                            @if ($errors->has('image'))
+                                <small class="error-message">{{ $errors->first('image') }}</small>
+                            @endif
+                            
+                            <button type="submit" class="edit-btn">Agregar Foto</button>
+                        </form>
 
-                <!-- Formulario para eliminar cuenta -->
-                <form action="{{ route('user.delete') }}" method="POST">
-                    @csrf
-                    @method('DELETE')  <!-- Indicamos que es un método DELETE -->
-                    <button type="submit" class="delete-btn">Eliminar Cuenta</button>
-                </form>
+                        <!-- Formulario para eliminar cuenta -->
+                        <form action="{{ route('user.delete') }}" method="POST">
+                            @csrf
+                            @method('DELETE') <!-- Indicamos que es un método DELETE -->
+                            <button type="submit" class="delete-btn">Eliminar Cuenta</button>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
